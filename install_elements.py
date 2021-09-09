@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from Elements.__version__ import VERSION
 
-with open("COMPOUNDS.md") as readme_file:
+with open("README.md") as readme_file:
         README = readme_file.read()
 
 setup(include_package_data=True)
