@@ -1,3 +1,7 @@
+# Installation
+
+`pip install compwizard`
+
 # Compounds.py documentation
 
 This module creates virtual compounds either from a database or from user input.
