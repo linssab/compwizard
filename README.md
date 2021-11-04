@@ -8,11 +8,14 @@ This module creates virtual compounds either from a database or from user input.
 The virtual compound object will contain its chemical and physical attributes.
 A compound can be initialized either by entering the name of a compound exisitng in the current database or by manually passing the parameters.
 Compounds created via the weights fractions of elements will have .mass and .chem attributes empty.
-Database can be checked via `Compounds.ListDatabase()`
+Database can be checked with the `Compounds.ListDatabase()` command.
+<br>
+To import the package in the project, use `import Elements`
+The Compounds library is found within it. You can also use the following: `from Elements import Compounds`
 
 ---
 
-#### Compounds.set_compound(_\*args,ctype=None,mode='by_atom',name='new_compound'_)
+#### compound.set_compound(_\*args,ctype=None,mode='by_atom',name='new_compound'_)
   Parameters:
   * **\*args: _compound setup, string or 2 lists_**
   <br>The name of compound from database or two lists containing: first, the ratios or weights of elements, second, the elements.
@@ -33,14 +36,14 @@ All compounds in the example will have the same properties.
 
 ---
 
-#### Compounds.set_attenuation(_energy_)
+#### compound.set_attenuation(_energy_)
   Parameters:
   * **energy: _string_ or _integer_**
   <br>The element the compound will be attenuating. _E.g._ if energy is set as 'Pb', it means the coeficients will be calculated for the attenuation of lead lines. If an integer is entered, the coefficients will be calculated for that one specific energy. It will still return a tuple, but with the second element equal to 0.
   
   Example:
   ```python
-  mycompound = compound()
+  mycompound = Compounds.compound()
   mycompound.set_compound('AuSheet')
   mycompound.set_attenuation('Pb')
   print(mycompound.lin_att,mycompound.tot_att)
@@ -51,7 +54,7 @@ All compounds in the example will have the same properties.
   
 ---
 
-#### Compounds.mix(_proportion,compounds_)
+#### compound.mix(_proportion,compounds_)
   Parameters:
   * **proportion: _list_**
   <br>The ratio which the compounds will be mixed, either in weight fraction or in parts. The first value always refers to the compound starting the mixture, i.e. the object where the method is being applied to.
@@ -60,9 +63,9 @@ All compounds in the example will have the same properties.
   
   Example:
   ```python
-  water = compound()
+  water = Compounds.compound()
   water.set_compound('water')
-  mycompound = compound()
+  mycompound = Compounds.compound()
   mycompound.set_compound('Linoil')
   mixture = mycompound.mix([2,10],[water])
   print(mixture.weight)
@@ -75,7 +78,7 @@ All compounds in the example will have the same properties.
 
 #### Attributes
 ```python
-  water = compound()
+  water = Compounds.compound()
   water.set_compound('water')
 ```
 
@@ -124,3 +127,5 @@ All compounds in the example will have the same properties.
   ```
   > (0.009849807036256424, 0.007272790368341503)
   <br>(10.192576248612653, 7.525880466148724)
+
+  If an `int` is passed as the set_attenuation argument, the tuple's second index will be 0.
