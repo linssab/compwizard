@@ -28,6 +28,8 @@ The Compounds library is found within it. You can also use the following: `from 
   
   Example:
   ```python
+  from Elements import Compounds
+  new_compound = Compounds.compound()
   new_compound.set_compound([2,1],['H','O'],ctype='custom')
   nem_compound.set_compound([0.12,0.88],['H','O'],ctype='custom',mode='by_weight')
   new_compound.set_compound('water')
