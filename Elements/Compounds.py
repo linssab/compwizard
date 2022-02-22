@@ -11,7 +11,7 @@ import logging
 logger = logging.getLogger("logfile")
 try:
     import xraylib as xlib
-    xlib.SetErrorMessages(0)
+    #xlib.SetErrorMessages(0) #deprecated in xraylib
     logger.info("Xraylib sucessfully imported in Compounds")
 except:
     logger.warning("FAILED TO LOAD XRAYLIB MODULE\nCompounds library will not work!")
