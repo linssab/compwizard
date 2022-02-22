@@ -23,7 +23,7 @@ except:
 try: 
     import xraylib as xlib
     Constants.USEXLIB = True
-    xlib.SetErrorMessages(0)
+    #xlib.SetErrorMessages(0) #deprecated for newer versions of xraylib
 except: 
     print("FAILED TO LOAD XRAYLIB MODULE\nContinuing with internal library, errors may occur. Check https://github.com/tschoonj/xraylib/wiki for further information.")
     Constants.USEXLIB = False
@@ -334,7 +334,7 @@ def set_energies_from_xlib():
 
     # Sets the L and K lines limits #
 
-    while elt in range(len(ElementList)):
+    while elt in range( 1, len(ElementList) ): #avoids Custom
         while ElementList[elt] != "Mt": 
             if ElementList[elt] == "Xe": L = True
             if L == True:
@@ -472,7 +472,7 @@ else:
 # Read the color code for the elements
 # if colours.txt does not exist, it generates random colours. 
 try: 
-    print(os.path.join(os.path.dirname(os.path.abspath(__file__)),"colours.txt"))
+    #print(os.path.join(os.path.dirname(os.path.abspath(__file__)),"colours.txt"))
     f = open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"colours.txt"),"r")
     for element in ElementList:
         line = f.readline()
