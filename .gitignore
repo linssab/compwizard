@@ -2,4 +2,4 @@ build/
 UNKNOWN.egg-info/
 compwizard.egg-info/
 dist/
-/__pycache__
+__pycache__/
