@@ -1,1 +1,5 @@
-/build
+build/
+UNKNOWN.egg-info/
+compwizard.egg-info/
+dist/
+/__pycache__

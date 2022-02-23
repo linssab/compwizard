@@ -334,63 +334,142 @@ def set_energies_from_xlib():
 
     # Sets the L and K lines limits #
 
-    while elt in range( 1, len(ElementList) ): #avoids Custom
+    while elt in range( len(ElementList) ):
         while ElementList[elt] != "Mt": 
             if ElementList[elt] == "Xe": L = True
             if L == True:
                 while ElementList[elt] != "Mt":
                     try: 
                         ALL_LINES[elt] = {}
-                        EnergyList.append(xlib.LineEnergy(elt,2))
-                        EnergyListKb.append(xlib.LineEnergy(elt,3))
-                        if xlib.RadRate(elt,xlib.LA1_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LA1_LINE))
-                        if xlib.RadRate(elt,xlib.LA2_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LA2_LINE))
-                        if xlib.RadRate(elt,xlib.LB1_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB1_LINE))
-                        if xlib.RadRate(elt,xlib.LB2_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB2_LINE))
-                        if xlib.RadRate(elt,xlib.LB3_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB3_LINE))
-                        if xlib.RadRate(elt,xlib.LB4_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB4_LINE))
-                        if xlib.RadRate(elt,xlib.LB5_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB5_LINE))
-                        if xlib.RadRate(elt,xlib.LB6_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB6_LINE))
-                        if xlib.RadRate(elt,xlib.LB7_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB7_LINE))
-                        if xlib.RadRate(elt,xlib.LB9_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB9_LINE))
-                        if xlib.RadRate(elt,xlib.LB10_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB10_LINE))
-                        if xlib.RadRate(elt,xlib.LB15_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB15_LINE))
-                        if xlib.RadRate(elt,xlib.LB17_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LB17_LINE))
-                        if xlib.RadRate(elt,xlib.LG1_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LG1_LINE))
-                        if xlib.RadRate(elt,xlib.LG2_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LG2_LINE))
-                        if xlib.RadRate(elt,xlib.LG3_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LG3_LINE))
-                        if xlib.RadRate(elt,xlib.LG4_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LG4_LINE))
-                        if xlib.RadRate(elt,xlib.LG5_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LG5_LINE))
-                        if xlib.RadRate(elt,xlib.LG6_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LG6_LINE))
-                        if xlib.RadRate(elt,xlib.LG8_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.LG8_LINE))
-                        if xlib.RadRate(elt,xlib.MA1_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.MA1_LINE))
-                        if xlib.RadRate(elt,xlib.MA2_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.MA2_LINE))
-                        if xlib.RadRate(elt,xlib.MB_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.MB_LINE))
-                        if xlib.RadRate(elt,xlib.MG_LINE) > cutoff:
-                            plottables_.append(xlib.LineEnergy(elt,xlib.MG_LINE))
+
+                        try:
+                            EnergyList.append(xlib.LineEnergy(elt,2))
+                        except ValueError: EnergyList.append(0)
+
+                        try: 
+                            EnergyListKb.append(xlib.LineEnergy(elt,3))
+                        except ValueError: EnergyListKb.append(0)
+
+                        try:
+                            if xlib.RadRate(elt,xlib.LA1_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LA1_LINE))
+                        except ValueError: pass
+                        
+                        try:
+                            if xlib.RadRate(elt,xlib.LA2_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LA2_LINE))
+                        except ValueError: pass
+
+                        try:
+                            if xlib.RadRate(elt,xlib.LB1_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB1_LINE))
+                        except ValueError: pass
+
+                        try:
+                            if xlib.RadRate(elt,xlib.LB2_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB2_LINE))
+                        except ValueError: pass
+
+                        try:
+                            if xlib.RadRate(elt,xlib.LB3_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB3_LINE))
+                        except ValueError: pass
+
+                        try:
+                            if xlib.RadRate(elt,xlib.LB4_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB4_LINE))
+                        except ValueError: pass
+                        
+                        try:
+                            if xlib.RadRate(elt,xlib.LB5_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB5_LINE))
+                        except ValueError: pass
+                 
+                        try:
+                            if xlib.RadRate(elt,xlib.LB6_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB6_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LB7_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB7_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LB9_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB9_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LB10_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB10_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LB15_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB15_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LB17_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LB17_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LG1_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LG1_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LG2_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LG2_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LG3_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LG3_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LG4_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LG4_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LG5_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LG5_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LG6_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LG6_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.LG8_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.LG8_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.MA1_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.MA1_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.MA2_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.MA2_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.MB_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.MB_LINE))
+                        except ValueError: pass
+                                                
+                        try:
+                            if xlib.RadRate(elt,xlib.MG_LINE) > cutoff:
+                                plottables_.append(xlib.LineEnergy(elt,xlib.MG_LINE))
+                        except ValueError: pass
+
                         plottables_dict[ElementList[elt]] = plottables_
                         plottables_ = []
                         elt += 1
@@ -398,24 +477,54 @@ def set_energies_from_xlib():
                 break 
             try:
                 ALL_LINES[elt] = {}
-                EnergyList.append(xlib.LineEnergy(elt,0))
-                EnergyListKb.append(xlib.LineEnergy(elt,1))
-                if xlib.RadRate(elt,xlib.KA1_LINE) > cutoff_K:
-                    plottables_.append(xlib.LineEnergy(elt,xlib.KA1_LINE))
-                if xlib.RadRate(elt,xlib.KA2_LINE) > cutoff_K:
-                    plottables_.append(xlib.LineEnergy(elt,xlib.KA2_LINE))
-                if xlib.RadRate(elt,xlib.KA3_LINE) > cutoff_K:
-                    plottables_.append(xlib.LineEnergy(elt,xlib.KA3_LINE))
-                if xlib.RadRate(elt,xlib.KB1_LINE) > cutoff_K:
-                    plottables_.append(xlib.LineEnergy(elt,xlib.KB1_LINE))
-                if xlib.RadRate(elt,xlib.KB2_LINE) > cutoff_K:
-                    plottables_.append(xlib.LineEnergy(elt,xlib.KB2_LINE))
-                if xlib.RadRate(elt,xlib.KB3_LINE) > cutoff_K:
-                    plottables_.append(xlib.LineEnergy(elt,xlib.KB3_LINE))
-                if xlib.RadRate(elt,xlib.KB4_LINE) > cutoff_K:
-                    plottables_.append(xlib.LineEnergy(elt,xlib.KB4_LINE))
-                if xlib.RadRate(elt,xlib.KB5_LINE) > cutoff_K:
-                    plottables_.append(xlib.LineEnergy(elt,xlib.KB5_LINE))
+                try:
+                    EnergyList.append(xlib.LineEnergy(elt,0))
+                except ValueError: EnergyList.append(0)
+
+                try:
+                    EnergyListKb.append(xlib.LineEnergy(elt,1))
+                except ValueError: EnergyListKb.append(0)
+
+                try:
+                    if xlib.RadRate(elt,xlib.KA1_LINE) > cutoff_K:
+                        plottables_.append(xlib.LineEnergy(elt,xlib.KA1_LINE))
+                except ValueError: pass
+
+                try:
+                    if xlib.RadRate(elt,xlib.KA2_LINE) > cutoff_K:
+                        plottables_.append(xlib.LineEnergy(elt,xlib.KA2_LINE))
+                except ValueError: pass
+
+                try:
+                    if xlib.RadRate(elt,xlib.KA3_LINE) > cutoff_K:
+                        plottables_.append(xlib.LineEnergy(elt,xlib.KA3_LINE))
+                except ValueError: pass
+
+                try:
+                    if xlib.RadRate(elt,xlib.KB1_LINE) > cutoff_K:
+                        plottables_.append(xlib.LineEnergy(elt,xlib.KB1_LINE))
+                except ValueError: pass
+
+                try:              
+                    if xlib.RadRate(elt,xlib.KB2_LINE) > cutoff_K:
+                        plottables_.append(xlib.LineEnergy(elt,xlib.KB2_LINE))
+                except ValueError: pass
+
+                try:
+                    if xlib.RadRate(elt,xlib.KB3_LINE) > cutoff_K:
+                        plottables_.append(xlib.LineEnergy(elt,xlib.KB3_LINE))
+                except ValueError: pass
+
+                try:
+                    if xlib.RadRate(elt,xlib.KB4_LINE) > cutoff_K:
+                        plottables_.append(xlib.LineEnergy(elt,xlib.KB4_LINE))
+                except ValueError: pass
+
+                try:
+                    if xlib.RadRate(elt,xlib.KB5_LINE) > cutoff_K:
+                        plottables_.append(xlib.LineEnergy(elt,xlib.KB5_LINE))
+                except ValueError: pass
+
                 plottables_dict[ElementList[elt]] = plottables_
                 plottables_ = []
                 elt += 1
