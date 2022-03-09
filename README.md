@@ -38,6 +38,27 @@ All compounds in the example will have the same properties.
 
 ---
 
+#### make_mixture_of(_proportion, compounds_)
+  Parameters:
+  * **proportion: _list_**
+  <br>The ratio which the compounds will be mixed, either in weight fraction or in parts.
+  * **compounds: _list_**
+  <br>List of compound objects.
+  <br> **proportion** and **compounds** must have the same dimension.
+  
+  Example:
+  ```python
+  from Elements import Compounds
+  compound1 = Compounds.compound()
+  compound2 = Compounds.compound()
+  compound1.set_compound('linoil')
+  compound2.set_compound('TiWhite')
+  new_compound = Compounds.max_mixture_of( [25, 75], [compound1, compound2] )
+  ```
+The compound created by the mixture function will be a mixture with 25% compound1 and 75% compound2.
+
+---
+
 #### compound.set_attenuation(_energy_)
   Parameters:
   * **energy: _string_ or _integer_**

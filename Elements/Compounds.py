@@ -1,7 +1,7 @@
 #################################################################
 #                                                               #
-#          CHEMEX (Compounds handler)                           #
-#                        version: 2.0 - Oct - 2019              #
+#          Compounds (Compounds handler)                        #
+#                                                               #
 # @author: Sergio Lins               sergio.lins@roma3.infn.it  #
 #################################################################
 
@@ -60,6 +60,47 @@ def ListDatabase():
 
     Database = dict(CompoundList,**WeightList)
     return Database
+
+
+def make_mixutre_of(proportion, compounds):
+    """ Mixes any number of compounds according to the porpoorstions passed.
+    
+    -------------------------------------------------------------------------------
+
+    INPUT:
+        proportion; 1D float or integer list
+        compounds; 1D compound class objects list 
+    OUTPUT:
+        mixture; compound class object """
+    
+    if len( proportion ) != len( compounds ):
+        raise ValueError(f"Input lists must have same dimension! Got {len(proportion)} and {len(compounds)}")
+
+    sum_of_ratios = sum(proportion)
+    if sum_of_ratios > 1:
+        for index in range (len(proportion)): 
+            proportion[index] = proportion[index] / sum_of_ratios
+
+    mixture = compound()
+    for i in range( len( proportion ) ):
+        for key in compounds[i].weight:
+            if key not in mixture.weight:
+                mixture.weight[key] = 0
+        for key in compounds[i].weight:
+            mixture.weight[key] += compounds[i].weight[key] * proportion[i]
+
+    mixture.give_density()
+    mixture.mass = None
+    mixture.chem = None
+    
+    name_list = []
+    for ingredient in compounds:
+        name_list.append(ingredient.name)
+    mixture.origin = {'Mode':'by_mixing','Proportion':proportion,'Origin':name_list}
+    names = ""
+    for name in name_list: names = names + "" + name
+    mixture.name = names 
+    return mixture
 
 
 class compound:
@@ -196,7 +237,7 @@ class compound:
         except:
             raise ValueError("{} has no property weight!".format(__self__))
 
-    def mix(__self__,proportion,compounds):
+    def mix(__self__, proportion, compounds):
         """ Mixes two compound class objects proportionally. This resets the attributes
         according to the mixing outcomes.
         
@@ -207,17 +248,20 @@ class compound:
             compounds; 1D compound class objects list 
         OUTPUT:
             mixture; compound class object """
-            
+        
         sum_of_ratios = sum(proportion)
         if sum_of_ratios > 1:
             for index in range (len(proportion)): 
-                proportion[index] = proportion[index]/sum_of_ratios
+                proportion[index] = proportion[index] / sum_of_ratios
+
         mixture = compound()
-        compounds.append(__self__)
-        for i in range(len(proportion)): 
+        for i in range( len( proportion ) ):
             for key in compounds[i].weight:
-                mixture.weight[key] = 0
-                mixture.weight[key] = compounds[i].weight[key]*proportion[i]
+                if key not in mixture.weight:
+                    mixture.weight[key] = 0
+            for key in compounds[i].weight:
+                mixture.weight[key] += compounds[i].weight[key] * proportion[i]
+
         mixture.give_density()
         mixture.mass = None
         mixture.chem = None
@@ -271,47 +315,4 @@ class compound:
 
 
 if __name__.endswith('__main__'):         
-    import sys
-    try:
-        if sys.argv[1] == "-listall": ListDatabase()
-        else: pass
-    except: pass
-"""
-    water = compound()
-    water.set_compound([2,1],['H','O'],ctype='custom')
-    
-    coblue = compound()
-    coblue.set_compound('CoBlue')
-
-    linoil = compound()
-    linoil.set_compound([0.78,0.11,0.11],['C','O','H'],ctype='custom',mode='by_weight',name='Linoil')
-    
-    mixture = linoil.mix([2,10],[coblue])
-    
-    print("Water DATA:\nWeight percentage of atoms: {0}\nTotal mass: {1}\nElements mass: {2}\nDensity: {3}\n".format(water.weight,water.mass,water.chem,water.density))
-
-    print("Cobalt Blue DATA:\nWeight percentage of atoms: {0}\nTotal mass: {1}\nElements mass: {2}\nDensity: {3}\n".format(coblue.weight,coblue.mass,coblue.chem,coblue.density))
-
-
-    print("Mixture DATA:\nWeight percentage of atoms: {0}\nTotal mass: {1}\nElements mass: {2}\nDensity: {3}\n".format(mixture.weight,mixture.mass,mixture.chem,mixture.density))
-    print(water.origin)
-    print(coblue.origin)
-    print(linoil.origin)
-    print(mixture.origin)
-    
-    ############################################
-    import os
-    att_file = open(os.getcwd()+"\\output\\att_.txt","w+")
-    for i in range(0,102,2):
-        mycompound = compound()
-        mycompound.set_compound([i/100,(100-i)/100],["Hg","Au"],ctype="custom",mode="by_weight")
-        mycompound.set_attenuation("Cu")
-        for key in mycompound.__dict__:
-            print(key, mycompound.__dict__[key])
-
-        att_file.write("{}\t{}\t{}\t{}\n".format(i,int(mycompound.lin_att[0]),int(mycompound.lin_att[1]),int(mycompound.lin_att[1]-mycompound.lin_att[0])))
-    att_file.close()
-
-    print(EnergyLib.DensityDict["Cu"])
-    ListDatabase() 
-    """
+    ListDatabase()
