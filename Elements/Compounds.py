@@ -115,8 +115,8 @@ class compound:
         __self__.mass = 0
         __self__.density = 0
         __self__.weight = {}
-        __self__.name = 'new_compound'
-        __self__.identity = np.nan
+        __self__.name = "new_compound"
+        __self__.identity = " "
     
     def set_compound(__self__,*args,ctype=None,mode='by_atom',name='new_compound'):
         """ Creates the compound according to input. The compound can be created
@@ -147,6 +147,16 @@ class compound:
         if ctype == None: name = args[0]
         __self__.give_name(name)
 
+    def reset(__self__):
+        __self__.chem = {}
+        __self__.mass = 0
+        __self__.density = 0
+        __self__.weight = {}
+        __self__.name = "new_compound"
+        __self__.identity = " "
+        __self__.tot_att = (0, 0) 
+        __self__.lin_att = (0, 0)
+
     def create_compound(__self__,atoms,elements):
         """ Sets the compound attributes with a 2 list input, mode='by_atom'.
         
@@ -163,7 +173,7 @@ class compound:
         __self__.weightpercent()
         __self__.give_density()
     
-    def create_compound_by_weight(__self__,ratios,elements):
+    def create_compound_by_weight(__self__, ratios, elements):
         """ Sets the compound attributes with a 2 list input, mode='by_weight'.
 
         -----------------------------------------------------------------------
@@ -231,11 +241,18 @@ class compound:
     def give_density(__self__):
         """ Calculates the compound density according to weight fraction """
 
+        identityWeight = 0
+        identityElement = " "
         try:
             for element in __self__.weight:
+                if __self__.weight[element] > identityWeight:
+                    identityWeight = __self__.weight[element]
+                    identityElement = element
                 __self__.density += __self__.weight[element]*EnergyLib.DensityDict[element]
+            __self__.identity = identityElement
         except:
             raise ValueError("{} has no property weight!".format(__self__))
+        return
 
     def mix(__self__, proportion, compounds):
         """ Mixes two compound class objects proportionally. This resets the attributes
